@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  myName("Yan", "Fan");
+  //myName1("Yan", "Fan");
+
+  // 아래는 함수 선언문(function definition)이다. 함수 표현식으로 바꾸시오.
+  // 함수 선언문과 함수 표현식의 차이점은 무엇인가? 표현식으로 바꾸면 에러가 나는가 안나는가?
+  // 함수 선언문은 호이스팅에 의해 제일 위로 올려진다. 하지만 표현식은 에러
+
+  //함수 선언문
+  function myName(first, last) {
+    console.log(first + last);
+  }
+
+  //함수 표현식
+  const myName1 = function(first, last){
+    console.log(first + last);
+  }
+  myName1("Yan", "Fan");
+  //https://joshua1988.github.io/web-development/javascript/function-expressions-vs-declarations/
+  //좋은 정리
+
+  let circleArea = function(pi, r) {
+    let area = pi * r * r;
+    return area;
+  };
+
+  //애로우 펑션으로 변경 =>
+  let circleArea2 = (pi, r)=> pi * r * r;
+
+  let result = circleArea(3.14, 3);
+  let result2 = circleArea2(3.14, 3);
+
+  console.log(result); //실행 결과 "28.26"
+  console.log(result2); //실행 결과 "28.26"
+
+  //this는 global this
+  function person1() {
+    this.arms1 = 2;
+    this.legs1 = 2;
+  }
+
+  // arms의 출력 결과는 무엇인가?
+  //console.log(arms1);
+  // Person() 실행결과는 무엇인가? 그 이유는?
+  console.log(person1());
+  // arms의 출력 결과는 무엇인가?  여기서 사용된 this는 무엇인가?
+  console.log(arms1);
+
+  //대문자의 의미는 생성자 함수를 쓰겠다.
+  //this:자기자신(생성자 함수 내부에 쓰이는)
+  //new 키워드를 통해서 json 객체를 생성
+  //자기자식을 가르키는 this = {}가 내부적으로 생성
+  //return문이 없거나 json 객체가 아니면 this가 리턴
+  function Person() {
+    this.arms = 2;
+    this.legs = 2;
+    return 5;//이건 그냥 Person { arms: 2, legs: 2 }나오고
+    //return {a:1}; //{ a: 1 }이게 리턴됨
+  };
+  function Person2(arms, legs) {
+    this.arms = arms;
+    this.legs = legs;
+    //return 5;//이건 그냥 Person { arms: 2, legs: 2 }나오고
+    //return {a:1}; //{ a: 1 }이게 리턴됨
+  }
+
+  // 자바스크립트에서 객체를 생성하는 2가지 방법은 무엇인가? 아래는 어떤 방법인가?
+  var person = new Person();
+  var person2 = new Person2(4,4);//활용이 좋음
+  const person3 = {arms:2, legs:2};
+  // 실행 결과는 무엇인가? 실행결과에 대해서 설명하시오.
+  console.log(person);
+  console.log(person2);
+  //console.log(person3);
+
+  // literal 객체로  person 객체를 생성하시오.
+
+  // 실행 결과는 무엇인가? 여기서 사용된 this는 무엇인가?
+  //console.log(arms);
+  // 만일 this.arms, this.legs가 없다면 new Person()의 결과는 무엇인가?
+
+  function Animal(type, legs) {
+    this.type = type;
+    this.legs = legs;
+    this.logInfo = function() {
+      console.log(this === myCat);
+      console.log('The ' + this.type + ' has ' + this.legs + ' legs');
+    }
+  }
+  var myCat = new Animal('Cat', 4);
+
+  // 리터럴 객체로 Animal 객체를 적으시오.
+  // 실행결과를 적으시오. function 안에 this는 무엇을 가르키는가?
+  // 함 안의 this
+  myCat.logInfo();
+  console.log(myCat);
+
+  // 실행결과를 적으시오. this는 무엇을 가르키는가?
+  // 글로벌 this
+  setTimeout(myCat.logInfo, 1000);
+
+  // 아래 실행결과를 예측하고 map과 forEach의 차이점을 설명하시오.
+  var items = ['1', '2', '3', '4', '5'];
+
+  //리턴되는 것을 모아서 새로운 배열을 리턴
+  //immutable 함수
+  var newItems = items.map(item => parseInt(item));
+  console.log(items);
+  console.log(newItems);
+  console.log(items);
+
+  //루프만 돈다.
+  //immutable 함수X
+  var newItems2 = items.forEach(item => parseInt(item));
+  console.log(items);
+  console.log(newItems2);
+  console.log(items);
+
+  // Student 라는 이름의 클래스를 생성하시오.
+  class Student{
+    //생성자를 추가하시오.
+    constructor(name){
+      // 생성자에 name 파라메터를 받아서 name 속성에 할당하는 코드를 쓰시오
+      this.name = name;
+    }
+    // changeName이라는 이름의 메서드를 추가하시오.
+    // 이 메서드는 userName이라는 파라메터를 받아서 name 속성을 userName 값으로 업데이트해야한다.
+    changeName(username){
+      this.name = username;
+    }
+  }
+
+
+  // "Jane" 이라는 이름을 파라메터로 넘겨서 user1 변수명을 가진 인스턴스를 생성하시오
+  const user1 = new Student("Jane");//생성자 constructor의 name임
+  console.log(user1);
+  // user1 인스턴스의 name 이 "Tom" 이 되도록 함수를 호출해서 변경해보자.
+  // 값이 바뀌었는지 출력해서 확인해보자
+  user1.changeName("Tom");
+  console.log(user1);
+  // 생성자의 역할은 무엇인가?
+
+  // 생성자에 사용된 this는 무엇을 가르키는가?
+</script>
+</html>
